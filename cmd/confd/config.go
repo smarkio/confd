@@ -73,8 +73,8 @@ func init() {
 	flag.StringVar(&config.Username, "username", "", "the username to authenticate as (only used with vault and etcd backends)")
 	flag.StringVar(&config.Password, "password", "", "the password to authenticate with (only used with vault and etcd backends)")
 	flag.BoolVar(&config.Watch, "watch", false, "enable watch support")
-	flag.StringVar(&config.Bucket, "bucket", "", "S3 bucket name (only used with -backend=s3")
-	flag.StringVar(&config.Key, "key", "", "S3 object path (only used with -backend=s3)")
+	flag.StringVar(&config.Bucket, "bucket", "", "AWS S3 bucket name (only used with -backend=s3)")
+	flag.StringVar(&config.Key, "key", "", "AWS S3 object key (only used with -backend=s3)")
 }
 
 // initConfig initializes the confd configuration by first setting defaults,

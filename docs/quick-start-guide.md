@@ -15,6 +15,7 @@ confd supports the following backends:
 * zookeeper
 * dynamodb
 * [ssm](../backends/ssm/README.md) (AWS Simple Systems Manager Parameter Store)
+* [s3](../pkg/backends/s3/README.md) (AWS Simple Storage Service)
 
 ### Add keys
 
@@ -99,6 +100,13 @@ aws dynamodb put-item --table-name <YOUR_TABLE> --region <YOUR_REGION> \
 ```
 aws ssm put-parameter --name "/myapp/database/url" --type "String" --value "db.example.com"
 aws ssm put-parameter --name "/myapp/database/user" --type "SecureString" --value "rob"
+```
+
+### s3
+
+```
+aws s3api create-bucket --bucket <YOUR_BUCKET> --region <YOUR_REGION>
+aws s3 cp s3://<YOUR_BUCKET>/<YOUR_KEY> <LOCAL_FILE>
 ```
 
 ### Create the confdir
@@ -192,6 +200,12 @@ confd -onetime -backend redis -node 192.168.255.210:6379/4
 
 ```
 confd -onetime -backend ssm
+```
+
+#### s3
+
+```
+confd -onetime -backend s3 -bucket <YOUR_BUCKET> -key <YOUR_KEY>
 ```
 
 ## Advanced Example

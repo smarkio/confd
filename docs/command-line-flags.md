@@ -18,6 +18,10 @@ Usage of confd:
       backend to use (default "etcd")
   -basic-auth
       Use Basic Auth to authenticate (only used with -backend=consul and -backend=etcd)
+  -bucket
+      AWS S3 bucket name (only used with -backend=s3)
+  -key
+      AWS S3 object key (only used with -backend=s3)
   -client-ca-keys string
       client ca keys
   -client-cert string
