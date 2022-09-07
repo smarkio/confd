@@ -31,6 +31,7 @@ type Config struct {
 	StoreClient   backends.StoreClient
 	SyncOnly      bool `toml:"sync-only"`
 	TemplateDir   string
+	Revision      *util.Revision
 }
 
 // TemplateResourceConfig holds the parsed template resource.

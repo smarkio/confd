@@ -25,7 +25,7 @@ func main() {
 
 	log.Info("Starting confd")
 
-	storeClient, err := backends.New(config.BackendsConfig)
+	storeClient, err := backends.New(config.BackendsConfig, config.Revision)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
