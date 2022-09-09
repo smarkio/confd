@@ -15,6 +15,7 @@ import (
 	"github.com/abtreece/confd/pkg/backends"
 	"github.com/abtreece/confd/pkg/log"
 	"github.com/abtreece/confd/pkg/template"
+	"github.com/abtreece/confd/pkg/util"
 )
 
 type TemplateConfig = template.Config
@@ -72,6 +73,8 @@ func init() {
 	flag.StringVar(&config.Username, "username", "", "the username to authenticate as (only used with vault and etcd backends)")
 	flag.StringVar(&config.Password, "password", "", "the password to authenticate with (only used with vault and etcd backends)")
 	flag.BoolVar(&config.Watch, "watch", false, "enable watch support")
+	flag.StringVar(&config.Bucket, "bucket", "", "AWS S3 bucket name (only used with -backend=s3)")
+	flag.StringVar(&config.Key, "key", "", "AWS S3 object key (only used with -backend=s3)")
 }
 
 // initConfig initializes the confd configuration by first setting defaults,
@@ -170,6 +173,10 @@ func initConfig() error {
 	log.Info("Backend set to " + config.Backend)
 	config.ConfigDir = filepath.Join(config.ConfDir, "conf.d")
 	config.TemplateDir = filepath.Join(config.ConfDir, "templates")
+
+	// Initialize revision.
+	config.Revision = &util.Revision{}
+
 	return nil
 }
 

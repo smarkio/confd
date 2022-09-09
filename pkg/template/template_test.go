@@ -7,6 +7,7 @@ import (
 	"testing"
 
 	"github.com/abtreece/confd/pkg/backends"
+	"github.com/abtreece/confd/pkg/util"
 )
 
 const (
@@ -615,7 +616,7 @@ func setupDirectoriesAndFiles(tt templateTest, t *testing.T) {
 func templateResource() (*TemplateResource, error) {
 	backendConf := backends.Config{
 		Backend: "env"}
-	client, err := backends.New(backendConf)
+	client, err := backends.New(backendConf, &util.Revision{})
 	if err != nil {
 		return nil, err
 	}

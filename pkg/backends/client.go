@@ -2,6 +2,7 @@ package backends
 
 import (
 	"errors"
+	"fmt"
 	"strings"
 
 	"github.com/abtreece/confd/pkg/backends/consul"
@@ -10,10 +11,12 @@ import (
 	"github.com/abtreece/confd/pkg/backends/etcd"
 	"github.com/abtreece/confd/pkg/backends/file"
 	"github.com/abtreece/confd/pkg/backends/redis"
+	"github.com/abtreece/confd/pkg/backends/s3"
 	"github.com/abtreece/confd/pkg/backends/ssm"
 	"github.com/abtreece/confd/pkg/backends/vault"
 	"github.com/abtreece/confd/pkg/backends/zookeeper"
 	"github.com/abtreece/confd/pkg/log"
+	"github.com/abtreece/confd/pkg/util"
 )
 
 // The StoreClient interface is implemented by objects that can retrieve
@@ -24,7 +27,7 @@ type StoreClient interface {
 }
 
 // New is used to create a storage client based on our configuration.
-func New(config Config) (StoreClient, error) {
+func New(config Config, revision *util.Revision) (StoreClient, error) {
 
 	if config.Backend == "" {
 		config.Backend = "etcd"
@@ -77,6 +80,11 @@ func New(config Config) (StoreClient, error) {
 		return dynamodb.NewDynamoDBClient(table)
 	case "ssm":
 		return ssm.New()
+	case "s3":
+		bucket := config.Bucket
+		key := config.Key
+		log.Info(fmt.Sprintf("Backend bucket set to %s, key set to %s", bucket, key))
+		return s3.NewS3Client(bucket, key, revision)
 	}
 	return nil, errors.New("Invalid backend")
 }

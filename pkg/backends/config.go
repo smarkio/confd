@@ -27,4 +27,6 @@ type Config struct {
 	Filter         string     `toml:"filter"`
 	Path           string     `toml:"path"`
 	Role           string
+	Bucket         string `toml:"bucket"`
+	Key            string `toml:"key"`
 }
